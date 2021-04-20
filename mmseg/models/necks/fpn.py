@@ -161,7 +161,6 @@ class FPN(nn.Module):
 
     def forward(self, inputs):
         assert len(inputs) == len(self.in_channels)
-
         # build laterals
         laterals = [
             lateral_conv(inputs[i + self.start_level])
