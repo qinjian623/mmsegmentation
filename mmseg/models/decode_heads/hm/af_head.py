@@ -113,7 +113,10 @@ class AFHead(BaseDecodeHead):
         """Compute LaneAF loss."""
         loss = dict()
         loss_seg, loss_vaf, loss_haf = self.loss_decode(out, **kwargs)
-        loss['seg'] = loss_seg
-        loss['vaf'] = loss_vaf
-        loss['haf'] = loss_haf
-        return loss_seg + loss_vaf + loss_haf
+        loss['seg_loss'] = loss_seg
+        loss['vaf_loss'] = loss_vaf
+        loss['haf_loss'] = loss_haf
+        # for k, v in loss.items():
+        #     print(k, v)
+        # exit()
+        return loss
