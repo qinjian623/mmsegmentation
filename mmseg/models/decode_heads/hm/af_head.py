@@ -89,6 +89,11 @@ class AFHead(BaseDecodeHead):
             z[head] = self.__getattr__(head)(x)
         return z
 
+
+    def forward_test(self, inputs):
+        return self.forward(inputs)
+
+
     def forward_train(self, inputs, img_metas, train_cfg, **kwargs):
         """Forward function for training.
         Args:

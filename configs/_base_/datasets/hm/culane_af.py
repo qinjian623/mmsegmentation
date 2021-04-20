@@ -4,8 +4,8 @@ data_root = '/home/data/culane'
 
 # Private Dataset, no pipeline
 data = dict(
-    samples_per_gpu=4,
-    workers_per_gpu=8,
+    samples_per_gpu=32,
+    workers_per_gpu=10,
     train=dict(
         type=dataset_type,
         path=data_root,
@@ -16,12 +16,12 @@ data = dict(
         type=dataset_type,
         path=data_root,
         image_set='val',
-        random_transforms=True
+        random_transforms=False
     ),
     test=dict(
         type=dataset_type,
         path=data_root,
         image_set='test',
-        random_transforms=True
+        random_transforms=False
     )
 )
