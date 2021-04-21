@@ -5,5 +5,6 @@ _base_ = [
 find_unused_parameters = True
 model = dict(test_cfg=dict(crop_size=(64, 64), stride=(42, 42)))
 # evaluation = dict(metric='mDice')
-evaluation = dict(interval=1, metric='mDice')
+evaluation = {}
+# evaluation = dict(interval=1, metric='mDice')
 
