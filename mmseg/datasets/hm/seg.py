@@ -6,7 +6,7 @@ from mmseg.datasets import DATASETS
 
 @DATASETS.register_module()
 class HMDataset(CustomDataset):
-    """DRIVE dataset.
+    """HM Seg dataset.
 
     In segmentation map annotation for HM. The
     ``img_suffix`` is fixed to '.png' and ``seg_map_suffix`` is fixed to

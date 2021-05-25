@@ -10,6 +10,7 @@ from .pascal_context import PascalContextDataset
 from .stare import STAREDataset
 from .voc import PascalVOCDataset
 from .hm.culane_af import CULane
+from .hm.seg import HMDataset
 
 __all__ = [
     'CustomDataset', 'build_dataloader', 'ConcatDataset', 'RepeatDataset',

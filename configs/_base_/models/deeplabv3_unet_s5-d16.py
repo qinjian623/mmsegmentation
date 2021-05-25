@@ -1,5 +1,5 @@
 # model settings
-norm_cfg = dict(type='SyncBN', requires_grad=True)
+norm_cfg = dict(type='BN', requires_grad=True)
 model = dict(
     type='EncoderDecoder',
     pretrained=None,
@@ -27,7 +27,7 @@ model = dict(
         channels=16,
         dilations=(1, 12, 24, 36),
         dropout_ratio=0.1,
-        num_classes=2,
+        num_classes=14,
         norm_cfg=norm_cfg,
         align_corners=False,
         loss_decode=dict(
