@@ -77,6 +77,8 @@ class CULane(Dataset):
     def __init__(self, path, image_set='train', test_mode=False,
                  random_transforms=False):
         super(CULane, self).__init__()
+        cv2.setNumThreads(0)
+        cv2.ocl.setUseOpenCL(False)
         assert image_set in ('train', 'val', 'test'), "image_set is not valid!"
         self.input_size = (256, 512)  # original image res: (590, 1640) -> (590-14, 1640+24)/2
         self.output_scale = 0.25
