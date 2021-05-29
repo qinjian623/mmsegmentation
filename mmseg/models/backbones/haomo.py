@@ -2,6 +2,7 @@ import torch
 import torchvision as tv
 import torch.nn as nn
 from torchvision.models._utils import IntermediateLayerGetter
+import timm
 
 from ..builder import BACKBONES
 
@@ -36,9 +37,33 @@ class TVResNet(nn.Module):
         return list(ret.values())
 
 
+@BACKBONES.register_module()
+class DLA34(nn.Module):
+    def __init__(self, arch="r18", pretrained=True, sync_bn=False, **kwargs):
+        super(DLA34, self).__init__(**kwargs)
+        self._bb = timm.create_model('dla34', pretrained=pretrained)
+        if sync_bn:
+            self._bb = nn.SyncBatchNorm.convert_sync_batchnorm(self._bb)
+
+        self._bbody = IntermediateLayerGetter(self._bb,
+                                              {'level2': 's4', 'level3': 's8', 'level4': 's16', 'level5': 's32'})
+
+    def init_weights(self, pretrained=True):
+        pass
+        # if pretrained:
+        #     state_dict = load_state_dict_from_url(model_urls[arch],
+        #                                           progress=progress)
+        #     self.load_state_dict(state_dict)
+
+    def forward(self, x):
+        ret = self._bbody(x)
+        return list(ret.values())
+
+
 
 if __name__ == '__main__':
     bb = TVResNet()
     d = torch.rand(4, 3, 224, 224)
+    print(bb)
     for i in bb(d):
         print(i.shape)

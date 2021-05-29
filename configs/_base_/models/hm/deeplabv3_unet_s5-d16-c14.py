@@ -3,13 +3,14 @@ norm_cfg = dict(type='SyncBN', requires_grad=True)
 model = dict(
     type='EncoderDecoder',
     backbone=dict(
-        type='TVResNet',
+        type='DLA34',
         pretrained=True,
-        arch="r18",
+        # arch="r18",
         sync_bn=True,
     ),
     neck=dict(
         type='FPN',
+        # in_channels=[64, 128, 256, 512],
         in_channels=[64, 128, 256, 512],
         out_channels=256,
         num_outs=4),
