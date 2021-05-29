@@ -9,7 +9,7 @@ from ..builder import BACKBONES
 
 @BACKBONES.register_module()
 class TVResNet(nn.Module):
-    def __init__(self, arch="r18", pretrained=True, **kwargs):
+    def __init__(self, arch="r18", pretrained=True, sync_bn=False, **kwargs):
         super(TVResNet, self).__init__(**kwargs)
         if arch=="r18":
             self._bb = tv.models.resnet18(pretrained=pretrained)
@@ -19,7 +19,8 @@ class TVResNet(nn.Module):
             self._bb = tv.models.resnet50(pretrained=pretrained)
         else:
             raise NotImplementedError("Only arch in [r18, r34, r50] now.")
-
+        if sync_bn:
+            self._bb = nn.SyncBatchNorm.convert_sync_batchnorm(self._bb)
         self._bbody = IntermediateLayerGetter(self._bb,
                                               {'layer1': 's4', 'layer2': 's8', 'layer3': 's16', 'layer4': 's32'})
 

@@ -5,7 +5,8 @@ model = dict(
     backbone=dict(
         type='TVResNet',
         pretrained=True,
-        arch="r18"
+        arch="r18",
+        sync_bn=True,
     ),
     neck=dict(
         type='FPN',
