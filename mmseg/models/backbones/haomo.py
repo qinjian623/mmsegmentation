@@ -8,18 +8,24 @@ from ..builder import BACKBONES
 
 # We don't need MMSeg resnets
 
+
+arch_tab = {
+    'r18': tv.models.resnet18,
+    'r34': tv.models.resnet34,
+    'r50': tv.models.resnet50,
+    'r101': tv.models.resnet101,
+    'r152': tv.models.resnet152,
+    'rnext50': tv.models.resnext50_32x4d,
+    'rnext101': tv.models.resnext101_32x8d,
+}
 @BACKBONES.register_module()
 class TVResNet(nn.Module):
     def __init__(self, arch="r18", pretrained=True, sync_bn=False, **kwargs):
         super(TVResNet, self).__init__(**kwargs)
-        if arch=="r18":
-            self._bb = tv.models.resnet18(pretrained=pretrained)
-        elif arch=="r34":
-            self._bb = tv.models.resnet34(pretrained=pretrained)
-        elif arch=="r50":
-            self._bb = tv.models.resnet50(pretrained=pretrained)
+        if arch in arch_tab:
+            self._bb = arch_tab[arch](pretrained=pretrained)
         else:
-            raise NotImplementedError("Only arch in [r18, r34, r50] now.")
+            raise NotImplementedError("This arch {} not supported yet. All archs : {}".format(arch, arch_tab.keys()))
         if sync_bn:
             self._bb = nn.SyncBatchNorm.convert_sync_batchnorm(self._bb)
         self._bbody = IntermediateLayerGetter(self._bb,
