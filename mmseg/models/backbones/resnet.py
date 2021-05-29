@@ -674,6 +674,8 @@ class ResNetV1c(ResNet):
             deep_stem=True, avg_down=False, **kwargs)
 
 
+
+
 @BACKBONES.register_module()
 class ResNetV1d(ResNet):
     """ResNetV1d variant described in [1]_.
@@ -686,3 +688,5 @@ class ResNetV1d(ResNet):
     def __init__(self, **kwargs):
         super(ResNetV1d, self).__init__(
             deep_stem=True, avg_down=True, **kwargs)
+
+

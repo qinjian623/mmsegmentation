@@ -333,14 +333,16 @@ class CustomDataset(Dataset):
                 reduce(np.union1d, [np.unique(_) for _ in gt_seg_maps]))
         else:
             num_classes = len(self.CLASSES)
+        # import numpy as np
+        # np.save("r", results[0])
+        # np.save("gt", gt_seg_maps[0])
         ret_metrics = eval_metrics(
             results,
             gt_seg_maps,
             num_classes,
             self.ignore_index,
             metric,
-            label_map=self.label_map,
-            reduce_zero_label=self.reduce_zero_label)
+            label_map=self.label_map)
         class_table_data = [['Class'] + [m[1:] for m in metric] + ['Acc']]
         if self.CLASSES is None:
             class_names = tuple(range(num_classes))

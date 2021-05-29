@@ -1,6 +1,6 @@
 # dataset settings
 dataset_type = 'HMDataset'
-data_root = '/home/qinjian/data/seg_210525/'
+data_root = '/home/data/HM/seg_210525/'
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
 img_scale = (1920, 1080)

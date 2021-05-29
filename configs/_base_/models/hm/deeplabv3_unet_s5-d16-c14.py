@@ -2,21 +2,14 @@
 norm_cfg = dict(type='BN', requires_grad=True)
 model = dict(
     type='EncoderDecoder',
-    pretrained='open-mmlab://resnet50_v1c',
     backbone=dict(
-        type='ResNetV1c',
-        depth=50,
-        num_stages=4,
-        out_indices=(0, 1, 2, 3),
-        dilations=(1, 1, 1, 1),
-        strides=(1, 2, 2, 2),
-        norm_cfg=norm_cfg,
-        norm_eval=False,
-        style='pytorch',
-        contract_dilation=True),
+        type='TVResNet',
+        pretrained=True,
+        arch="r18"
+    ),
     neck=dict(
         type='FPN',
-        in_channels=[256, 512, 1024, 2048],
+        in_channels=[64, 128, 256, 512],
         out_channels=256,
         num_outs=4),
     decode_head=dict(
